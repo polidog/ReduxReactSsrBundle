@@ -1,6 +1,6 @@
 # PolidogReduxReactSsrBundle
 
-PolidogReduxReactSsrBundle is a Koriym.ReduxReactSsr support Bundle for Symfony2 or 3
+PolidogReduxReactSsrBundle is a [Koriym.ReduxReactSsr](https://github.com/koriym/Koriym.ReduxReactSsr) support Bundle for Symfony2 or 3
 
 ## Prerequisites
 - php7
