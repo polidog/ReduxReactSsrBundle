@@ -36,7 +36,7 @@ Configure the paths to your react.js and components javascript files and default
 ```
 # app/config.yml
 
-polidog_react_js:
+polidog_redux_react_ssr:
     react_lib_src: "%kernel.root_dir%/../web/js/react.bundle.js"
     react_app_src: "%kernel.root_dir%/../web/js/app.bundle.js"
     default_template: "::ssr.html.twig"
