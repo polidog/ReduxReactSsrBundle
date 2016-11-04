@@ -6,11 +6,19 @@ services:
             - "%polidog_dedux_react_ssr.react_lib_src%"
             - "%polidog_dedux_react_ssr.react_app_src%"
 
+    polidog_redux_react_ssr.redux_react_router_js:
+        class: Polidog\ReduxReactRouterSsr\ReduxReactRouterJs
+        factory: [Polidog\ReduxReactSsrBundle\Factory\ReduxReactRouterJsFactory, create]
+        arguments:
+            - "%polidog_dedux_react_ssr.react_lib_src%"
+            - "%polidog_dedux_react_ssr.react_app_src%"
+
     polidog_redux_react_ssr.event_listener.template_listener:
         class: Polidog\ReduxReactSsrBundle\EventListener\TemplateListener
         arguments:
             - "@annotation_reader"
             - "@polidog_redux_react_ssr.redux_react_js"
+            - "@polidog_redux_react_ssr.redux_react_router_js"
             - "@templating"
             - "%polidog_dedux_react_ssr.default_template%"
         tags:

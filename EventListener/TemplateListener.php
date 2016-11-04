@@ -10,6 +10,7 @@ namespace Polidog\ReduxReactSsrBundle\EventListener;
 
 use Doctrine\Common\Annotations\Reader;
 use Koriym\ReduxReactSsr\ReduxReactJsInterface;
+use Polidog\ReduxReactRouterSsr\ReduxReactRouterInterface;
 use Polidog\ReduxReactSsrBundle\Annotations\SsrTemplate;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,6 +33,11 @@ class TemplateListener implements EventSubscriberInterface
     private $reduxReactSsr;
 
     /**
+     * @var ReduxReactRouterInterface
+     */
+    private $reduxReactRouterSsr;
+
+    /**
      * @var EngineInterface
      */
     private $templating;
@@ -48,10 +54,11 @@ class TemplateListener implements EventSubscriberInterface
      * @param EngineInterface $templating
      * @param string $defaultTemplate
      */
-    public function __construct(Reader $reader, ReduxReactJsInterface $reduxReactSsr, EngineInterface $templating, $defaultTemplate)
+    public function __construct(Reader $reader, ReduxReactJsInterface $reduxReactSsr, ReduxReactRouterInterface $reduxReactRouterSsr, EngineInterface $templating, $defaultTemplate)
     {
         $this->reader = $reader;
         $this->reduxReactSsr = $reduxReactSsr;
+        $this->reduxReactRouterSsr = $reduxReactRouterSsr;
         $this->templating = $templating;
         $this->defaultTemplate = $defaultTemplate;
     }
@@ -111,8 +118,13 @@ class TemplateListener implements EventSubscriberInterface
             return;
         }
 
-        $ssr = $this->reduxReactSsr;
-        list($html, $js) = $ssr($template->getRootContainer(), $parameters['state'], $template->getId());
+        if ($template->isRouter()) {
+            $ssr = $this->reduxReactRouterSsr;
+            list($html, $js) = $ssr($template->getRootContainer(), $request->getPathInfo(), $parameters['state'], $template->getId());
+        } else {
+            $ssr = $this->reduxReactSsr;
+            list($html, $js) = $ssr($template->getRootContainer(), $parameters['state'], $template->getId());
+        }
 
         $parameters['markup'] = $html;
         $parameters['js'] = $js;

@@ -32,6 +32,11 @@ final class SsrTemplate
      */
     private $id = "root";
 
+    /**
+     * @var boolean
+     */
+    private $router = false;
+
 
     /**
      * SsrTemplate constructor.
@@ -53,6 +58,10 @@ final class SsrTemplate
 
         if (isset($data['id'])) {
             $this->id = $data['id'];
+        }
+
+        if (isset($data['router'])) {
+            $this->router = $data['router'];
         }
 
     }
@@ -97,6 +106,14 @@ final class SsrTemplate
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRouter()
+    {
+        return $this->router;
     }
 
 
