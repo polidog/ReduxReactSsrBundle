@@ -86,6 +86,31 @@ twig:
 </html>
 ```
 
+### react-router
+
+controller:
+
+```
+<?php
+...
+    /**
+     * @Route("/", name="ssr")
+     * @SsrTemplate(router=true)
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function indexAction(Request  $request)
+    {
+        $state = ['hello'=> ['message' => 'Hello SSR !']];
+        return [
+            'state' => $state,
+        ];
+    }
+
+```
+
+
 ## Todo
 
-- react-router support.
+- test case
