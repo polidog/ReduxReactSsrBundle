@@ -10,7 +10,7 @@ namespace Polidog\ReduxReactSsrBundle\Annotations;
 /**
  * @Annotation
  */
-final class SsrTemplate
+final class ReactRender
 {
     /**
      * @var string

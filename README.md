@@ -51,7 +51,7 @@ controller:
 ...
     /**
      * @Route("/", name="ssr")
-     * @SsrTemplate()
+     * @ReactRender()
      *
      * @param Request $request
      * @return array
@@ -95,7 +95,7 @@ controller:
 ...
     /**
      * @Route("/", name="ssr")
-     * @SsrTemplate(router=true)
+     * @ReactRender(router=true)
      *
      * @param Request $request
      * @return array

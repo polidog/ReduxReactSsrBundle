@@ -11,7 +11,7 @@ namespace Polidog\ReduxReactSsrBundle\EventListener;
 use Doctrine\Common\Annotations\Reader;
 use Koriym\ReduxReactSsr\ReduxReactJsInterface;
 use Polidog\ReduxReactRouterSsr\ReduxReactRouterInterface;
-use Polidog\ReduxReactSsrBundle\Annotations\SsrTemplate;
+use Polidog\ReduxReactSsrBundle\Annotations\ReactRender;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,7 +72,7 @@ class TemplateListener implements EventSubscriberInterface
         $object = new \ReflectionObject($controller[0]);
         $method = $object->getMethod($controller[1]);
 
-        $template = $this->reader->getMethodAnnotation($method, SsrTemplate::class);
+        $template = $this->reader->getMethodAnnotation($method, ReactRender::class);
 
         // no @SsrTemplate present
         if (null === $template) {
@@ -104,7 +104,7 @@ class TemplateListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$template instanceof SsrTemplate) {
+        if (!$template instanceof ReactRender) {
             throw new \InvalidArgumentException('Request attribute "_template" is reserved for @SsrTemplate annotations.');
         }
 
